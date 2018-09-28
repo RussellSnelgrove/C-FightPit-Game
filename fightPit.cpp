@@ -4,7 +4,7 @@
 #include <time.h>
 using namespace std;
 
-int createEnemy() {
+int createFighter() {
     if (rand() % 20 < 10)
         return 11;
 
@@ -18,7 +18,7 @@ int main() {
 
     // game stats
     int playerAlive = true;
-    int playerSkill = 10;
+    int playerHealth = 10;
     int playerScore = 1;
     string playerName = "";
     int fighterCount = 0;
@@ -37,15 +37,15 @@ int main() {
     cin >> fighterCount;
 
     // ask how many fighters
-    cout << "What skill level do you want (10-100)? ";
-    cin >> playerSkill;
+    cout << "How much health do you want to start with? ";
+    cin >> playerHealth;
 
     cout << "Get ready to fight for your life, " << playerName << "!" << endl;
 
     // main game loop
     while (playerAlive && fightersKilled < fighterCount) {
         // create a random fighter
-        int fighterSkill = createEnemy();
+        int fighterSkill = createFighter();
 
         // battle sequence
         if (fighterSkill > 10) {
@@ -59,37 +59,49 @@ int main() {
         sleep(2);
 
         // fighter beat the player
-        if (playerSkill < fighterSkill) {
-            playerAlive = false;
-            cout << "You have died." << endl;
+        if (playerHealth < fighterSkill) {
+            cout << "Your opponment has more Health than you do!" << endl;
+            if (rand() % 5 < 2){
+                cout << "You barely beat your opponment!" << endl;
+                playerHealth = playerHealth -5;
+            }else{
+                playerAlive = false;
+                cout << "You have died." << endl;
+            }
+
         }
 
         // player Beat the fighter
         else {
-            if (playerSkill - fighterSkill > 15) {
+            if (playerHealth - fighterSkill > 15) {
                 cout << "Your opponment did not stand a chance!" << endl;
                 playerScore = playerScore + 3;
-                playerSkill = playerSkill -1;
+                playerHealth = playerHealth -1;
             }
 
-            else if (playerSkill - fighterSkill > 10) {
+            else if (playerHealth - fighterSkill > 10) {
                 cout << "Your opponment put up a decent fight!" << endl;
                 playerScore = playerScore + 2;
-                playerSkill = playerSkill -2;
+                playerHealth = playerHealth -2;
             }
 
-            else if (playerSkill - fighterSkill > 7) {
+            else if (playerHealth - fighterSkill > 7) {
                 cout << "You beat your opponment!" << endl;
                 playerScore = playerScore + 1;
-                playerSkill = playerSkill -3;
+                playerHealth = playerHealth -3;
             }
 
             else {
                 cout << "You defeated your opponment, but suffered injuries." << endl;
-                playerSkill = playerSkill -4;
+                playerHealth = playerHealth -4;
             }
 
             fightersKilled++;
+
+            if (rand() % 10 > 4){
+                //cout << "You have found a Health Potion" << endl;
+                playerHealth++;
+            }
         }
 
         cout << endl;
