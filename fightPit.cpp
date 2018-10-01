@@ -66,7 +66,7 @@ int main() {
                 playerHealth = playerHealth -5;
             }else{
                 playerAlive = false;
-                cout << "You have died." << endl;
+                cout << "You have been defeated." << endl;
             }
 
         }
@@ -111,11 +111,11 @@ int main() {
     // end game
     if (fightersKilled == fighterCount) {
         // victory
-        cout << "You have survived the onslaught!" << endl;
+        cout << "You are the campion!" << endl;
     }
     else {
         // lost
-        cout << "You did not survive the fighter war." << endl;
+        cout << "You have fallen in Combat" << endl;
     }
 
     cout << "Fighters Defeated: " << fightersKilled << endl;
